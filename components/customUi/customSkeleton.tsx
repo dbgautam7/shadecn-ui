@@ -1,5 +1,7 @@
 "use client"
 
+
+
 export default function CustomSkeleton({value}:{value:number}) {
     return (
       Array(value).fill(0).map((el, index) => (
