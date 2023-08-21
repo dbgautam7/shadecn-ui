@@ -1,22 +1,22 @@
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from '@/components/ui/tooltip';
 
 export function CustomTooltip() {
   return (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button variant="outline">Hover</Button>
+          <Button variant='outline'>Hover</Button>
         </TooltipTrigger>
         <TooltipContent>
           <p>Add to library</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
-  )
+  );
 }

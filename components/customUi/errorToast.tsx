@@ -1,23 +1,23 @@
-"use client"
+'use client';
 
-import { Button } from "@/components/ui/button"
-import { useToast } from "@/components/ui/use-toast"
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/components/ui/use-toast';
 
 export function ErrorToast() {
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   return (
     <Button
-      variant="outline"
+      variant='outline'
       onClick={() => {
         toast({
-          variant: "destructive",
-          title: "Uh oh! Something went wrong.",
-          description: "There was a problem with your request.",
-        })
+          variant: 'destructive',
+          title: 'Uh oh! Something went wrong.',
+          description: 'There was a problem with your request.',
+        });
       }}
     >
       Show Toast
     </Button>
-  )
+  );
 }
