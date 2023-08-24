@@ -17,6 +17,7 @@ import * as z from 'zod';
 import { LoginArrowSvg } from '@/public/assets/loginArrowSvg';
 import { useRouter } from 'next/navigation';
 import { Checkbox } from '@/components/ui/checkbox';
+import { motion } from 'framer-motion';
 
 const formSchema = z
   .object({
@@ -38,6 +39,12 @@ const formSchema = z
     message: "Password don't match",
   });
 
+const variants = {
+  hidden: { opacity: 0, x: 0, y: 20 },
+  enter: { opacity: 1, x: 0, y: 0 },
+  exit: { opacity: 0, x: -0, y: 20 },
+};
+
 const RegisterForm = () => {
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -52,14 +59,17 @@ const RegisterForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values, 'values');
+    console.log('🚀 ~ file: registerForm.tsx:55 ~ onSubmit ~ values:', values);
   };
 
   return (
     <Form {...form}>
-      <form
+      <motion.form
+        initial='hidden'
+        animate='enter'
+        exit='exit'
+        variants={variants}
+        transition={{ duration: 0.4, type: 'easeInOut' }}
         onSubmit={form.handleSubmit(onSubmit)}
         className='space-y-4 rounded-md border border-b-white px-6 py-6 shadow-md'
       >
@@ -161,12 +171,12 @@ const RegisterForm = () => {
           Already have an account?{' '}
           <span
             onClick={() => router.push('/login')}
-            className=' text-blue-600 hover:underline'
+            className=' cursor-pointer text-blue-600 hover:underline'
           >
             Login
           </span>
         </p>
-      </form>
+      </motion.form>
     </Form>
   );
 };
