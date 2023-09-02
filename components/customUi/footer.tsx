@@ -8,7 +8,7 @@ const footerLinks = [
 
 const Footer = () => {
   return (
-    <div className='fixed bottom-0 min-h-fit w-full space-y-4 divide-y bg-gray-700 px-4'>
+    <div className='fixed bottom-0 z-10 min-h-fit w-full space-y-4 divide-y bg-gray-700 px-4'>
       <section className='flex justify-around'>
         {footerLinks.map((item, index) => (
           <div key={index} className='mt-4'>
