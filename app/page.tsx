@@ -1,11 +1,19 @@
-import EventCalendar from "@/components/customUi/eventCalendar"
-import { Button } from "@/components/ui/button"
+'use client';
+import CustomAreaChart from '@/components/charts/areaChart';
+import CustomBarChart from '@/components/charts/barChart';
+import CustomPieChart from '@/components/charts/pieChart';
+import Layout from '@/components/customUi/layout';
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      Shade cn ui
-      <Button>Click me</Button>
-      <EventCalendar />
-    </main>
-  )
+    <Layout>
+      <main className='mx-4 my-24 overflow-y-auto'>
+        <div className='grid grid-cols-3 gap-4 rounded-md border p-4 shadow-md '>
+          <CustomBarChart />
+          <CustomAreaChart />
+          <CustomPieChart />
+        </div>
+      </main>
+    </Layout>
+  );
 }
