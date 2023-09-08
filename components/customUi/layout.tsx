@@ -6,7 +6,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <Navbar />
-      <main className='mb-32'>{children}</main>
+      <main className='mx-4 mb-56 mt-16 overflow-y-auto'>{children}</main>
       <Footer />
     </>
   );

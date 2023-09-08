@@ -1,7 +1,13 @@
 'use client';
+import { useState } from 'react';
+import styles from './products.module.css';
 import CustomSkeleton from '@/components/customUi/customSkeleton';
+import Layout from '@/components/customUi/layout';
 import { useToast } from '@/components/ui/use-toast';
 import { useQuery } from '@tanstack/react-query';
+import { DndContext, DragEndEvent } from '@dnd-kit/core';
+import FruitDraggable from './components/fruitDraggable/fruitDraggable';
+import CartDroppable from './components/cartDroppable/cartDroppable';
 
 async function getProdcts() {
   const res = await fetch('https://dummyjson.com/products');
@@ -10,6 +16,8 @@ async function getProdcts() {
 }
 
 const Products = () => {
+  const [cartItems, setCartItems] = useState<string[]>([]);
+
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['products'],
     queryFn: () => getProdcts(),
@@ -25,25 +33,38 @@ const Products = () => {
       title: JSON.stringify(error),
     });
   }
+  let limitedData = data?.products;
+  limitedData.length = 10;
+
+  const fruits = ['Apple', 'Banana', 'Lemon', 'Pear', 'Mango'];
+
+  const addItemsToCart = (e: DragEndEvent) => {
+    const newItem = e.active.data.current?.title;
+    if (e.over?.id !== 'cart-droppable' || !newItem) return;
+    const temp = [...cartItems];
+    temp.push(newItem);
+    setCartItems(temp);
+  };
 
   return (
-    <>
-      {!isLoading &&
-        !isError &&
-        data &&
-        data?.products?.map((product: any) => {
-          return (
-            <div
-              key={product.id}
-              className='flex items-center justify-center gap-4 border border-b-2'
-            >
-              <h2>{product?.id}.</h2>
-              <h3>{product.title}</h3>
-              <p>{product.brand}</p>
-            </div>
-          );
-        })}
-    </>
+    <Layout>
+      <DndContext onDragEnd={addItemsToCart}>
+        <main className={styles.main}>
+          <div className={styles['fruit-list-section']}>
+            <h1>Fruit List</h1>
+            <ul className={styles['fruit-list']}>
+              {fruits.map((fruit) => (
+                <FruitDraggable key={fruit}>{fruit}</FruitDraggable>
+              ))}
+            </ul>
+          </div>
+          <div className={styles['cart-section']}>
+            <h1>My Cart</h1>
+            <CartDroppable items={cartItems} />
+          </div>
+        </main>
+      </DndContext>
+    </Layout>
   );
 };
 
