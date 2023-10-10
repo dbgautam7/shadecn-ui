@@ -6,6 +6,7 @@ import { ToggleTheme } from './toggleTheme';
 const navItems = [
   { name: 'Home', path: '/' },
   { name: 'Products', path: '/products' },
+  { name: 'Quiz', path: '/quiz' },
 ];
 
 const Navbar = () => {
